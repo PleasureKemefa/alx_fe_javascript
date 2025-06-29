@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
-</head>
-<body>
-  <h1>Dynamic Quote Generator</h1>
+// ========== EVENT LISTENERS ==========
+newQuoteButton.addEventListener("click", showRandomQuote);
+addQuoteButton.addEventListener("click", addQuote);
+exportButton.addEventListener("click", exportToJsonFile);
+importFileInput.addEventListener("change", importFromJsonFile);
+categoryFilter.addEventListener("change", filterQuotes);
 
-  <select id="categoryFilter">
-    <option value="all">All Categories</option>
-  </select>
+// ========== INIT ==========
+loadQuotes();
+populateCategories();
 
-  <div id="quoteDisplay"></div>
-
-  <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-  <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-  <button id="addQuoteBtn">Add Quote</button>
-  <button id="newQuote">Show New Quote</button>
-  <button id="exportQuotes">Export Quotes</button>
-  <input type="file" id="importFile" accept=".json" />
-
-  <script src="script.js"></script>
-</body>
-</html>
+// Restore last quote if available
+const last = sessionStorage.getItem("lastQuote");
+if (last) {
+  const quote = JSON.parse(last);
+  quoteDisplay.textContent = "${quote.text}" - (${quote.category});
+} else {
+  showRandomQuote();
+}
