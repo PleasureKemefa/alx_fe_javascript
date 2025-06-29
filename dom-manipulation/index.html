@@ -1,120 +1,94 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dynamic Quote Generator</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #1e1e2f;
-      color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    h1 {
-      margin-bottom: 10px;
-      font-size: 2.5rem;
-      color: #ffcc70;
-    }
-
-    #quoteDisplay {
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #2e2e42;
-      border-left: 5px solid #ffcc70;
-      width: 100%;
-      max-width: 600px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      transition: background 0.3s ease;
-    }
-
-    blockquote {
-      font-size: 1.3rem;
-      font-style: italic;
-      margin: 0 0 10px 0;
-      color: #fefefe;
-    }
-
-    .category {
-      color: #bbb;
-      font-size: 0.9rem;
-    }
-
-    label {
-      margin-top: 15px;
-      font-weight: bold;
-      display: block;
-    }
-
-    input, select, button {
-      margin: 8px 0;
-      padding: 10px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      outline: none;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    input, select {
-      background-color: #3a3a55;
-      color: #fff;
-    }
-
-    button {
-      background-color: #ffcc70;
-      color: #1e1e2f;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s ease;
-    }
-
-    button:hover {
-      background-color: #ffd88a;
-    }
-
-    #controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    @media (min-width: 600px) {
-      #controls {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        #quoteDisplay {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #3498db;
+        }
+        blockquote {
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 0 0 10px 0;
+        }
+        .category {
+            font-weight: bold;
+            color: #555;
+            margin: 0;
+        }
+        button, input, select {
+            padding: 8px 12px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        input, select {
+            border: 1px solid #ddd;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        #conflictNotification {
+            color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Dynamic Quote Generator</h1>
-  <div id="quoteDisplay"></div>
-  <div id="controls">
-    <button id="newQuote">Show New Quote</button>
-    <label for="categorySelect">Filter by Category:</label>
-    <select id="categorySelect">
-      <option value="all">All Categories</option>
-    </select>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button id="addQuoteBtn" onclick="addQuote()">Add Quote</button>
-  </div>
-  <script src="script.js"></script>
+    <h1>Dynamic Quote Generator</h1>
+    <div id="quoteDisplay"></div>
+    <div class="input-group">
+        <label for="categorySelect">Filter by Category:</label>
+        <select id="categorySelect" onchange="filterQuotes()">
+            <option value="all">All Categories</option>
+        </select>
+        <button id="newQuote" onclick="showRandomQuote()">Show New Quote</button>
+    </div>
+    <div class="input-group">
+        <h2>Add New Quote</h2>
+        <label for="newQuoteText">Quote:</label>
+        <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+        <label for="newQuoteCategory">Category:</label>
+        <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+        <button onclick="addQuote()">Add Quote</button>
+    </div>
+    <div class="input-group">
+        <h2>Import/Export Quotes</h2>
+        <button onclick="exportToJsonFile()">Export Quotes</button>
+        <label for="importFile">Import Quotes:</label>
+        <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+    </div>
+    <div id="conflictNotification"></div>
+    <script src="script.js"></script>
 </body>
 </html>
