@@ -7,7 +7,7 @@ const exportButton = document.getElementById("exportQuotes");
 const importFileInput = document.getElementById("importFile");
 const categoryFilter = document.getElementById("categoryFilter");
 
-// ========== STORAGE ==========
+// STORAGE
 function saveQuotes() {
   localStorage.setItem("quotes", JSON.stringify(quotes));
 }
@@ -26,7 +26,7 @@ function loadQuotes() {
   }
 }
 
-// ========== CATEGORY MANAGEMENT ==========
+//  CATEGORY MANAGEMENT
 function getUniqueCategories() {
   const categories = new Set(quotes.map(q => q.category));
   return Array.from(categories);
@@ -50,7 +50,7 @@ function populateCategories() {
   }
 }
 
-// ========== DISPLAY ==========
+// DISPLAY
 function showRandomQuote() {
   let filteredQuotes = quotes;
 
@@ -71,7 +71,7 @@ function showRandomQuote() {
   sessionStorage.setItem("lastQuote", JSON.stringify(quote));
 }
 
-// ========== ADD ==========
+// ADD 
 function addQuote() {
   const textInput = document.getElementById("newQuoteText");
   const categoryInput = document.getElementById("newQuoteCategory");
@@ -96,7 +96,7 @@ function addQuote() {
   filterQuotes(); // Refresh display
 }
 
-// ========== FILTER ==========
+//  FILTER 
 function filterQuotes() {
   const selectedCategory = categoryFilter.value;
   localStorage.setItem("selectedCategory", selectedCategory);
@@ -104,7 +104,7 @@ function filterQuotes() {
   showRandomQuote(); // Show a quote from the selected category
 }
 
-// ========== IMPORT/EXPORT ==========
+// IMPORT/EXPORT 
 function importFromJsonFile(event) {
   const fileReader = new FileReader();
   fileReader.onload = function (e) {
@@ -136,14 +136,14 @@ function exportToJsonFile() {
   link.download = "quotes.json";
   link.click();
 }
-// ========== EVENT LISTENERS ==========
+//  EVENT LISTENERS 
 newQuoteButton.addEventListener("click", showRandomQuote);
 addQuoteButton.addEventListener("click", addQuote);
 exportButton.addEventListener("click", exportToJsonFile);
 importFileInput.addEventListener("change", importFromJsonFile);
 categoryFilter.addEventListener("change", filterQuotes);
 
-// ========== INIT ==========
+//  INIT 
 loadQuotes();
 populateCategories();
 
